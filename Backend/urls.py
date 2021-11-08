@@ -28,7 +28,7 @@ urlpatterns = [
     path("api/v1/rest-auth/logout/", include("rest_auth.urls")),
     path(
         "accounts/", include("allauth.urls")
-    ),  # Chage this once the frontend dev is started
+    ),
     path("auth/google/", GoogleLogin.as_view(), name="google-login"),
     path("auth/facebook/", FacebookLogin.as_view(), name="facebook-login"),
 ]
@@ -36,4 +36,3 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    

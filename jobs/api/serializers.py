@@ -5,6 +5,8 @@ from jobs.models import Company, Seeker
 
 
 class CompanySerializer(serializers.ModelSerializer):
+    slug = serializers.StringRelatedField(read_only=True)
+
     class Meta:
         model = Company
         fields = "__all__"
@@ -12,5 +14,5 @@ class CompanySerializer(serializers.ModelSerializer):
 
 class SeekerSerializer(serializers.ModelSerializer):
     class Meat:
-        models = Seeker
-        exclude = ["company"]
+        model = Seeker
+        fields = "__all__"

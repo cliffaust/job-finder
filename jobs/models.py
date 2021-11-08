@@ -21,6 +21,9 @@ class Company(models.Model):
 
 class Seeker(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    company = models.ForeignKey(
+        Company, on_delete=models.CASCADE, related_name="seeker"
+    )
     cv = models.FileField(
         upload_to=cv_thumbnail,
         blank=True,

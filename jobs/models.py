@@ -11,7 +11,7 @@ class Company(models.Model):
     company_name = models.CharField(max_length=255, required=True)
     job_title = models.CharField(max_length=255, required=True)
     work_email = models.EmailField(max_length=255, unique=True)
-    phonenumber = PhoneNumberField(blank=True)
+    phone_number = PhoneNumberField(blank=True)
     current_role = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100, blank=True)
 
@@ -29,7 +29,7 @@ class Seeker(models.Model):
         blank=True,
         null=True,
     )
-    phonenumber = PhoneNumberField(blank=True)
+    phone_number = PhoneNumberField(blank=True)
     other_comment = models.TextField(blank=True, null=True)
 
     def __str__(self):

@@ -16,5 +16,5 @@ def create_slug(sender, instance, *args, **kwargs):
 @receiver(pre_save, sender=Company)
 def create_seeker_slug(sender, instance, *args, **kwargs):
     if instance and not instance.slug:
-        random_string = generate_random_string()
+        random_string = generate_random_string(length=24)
         instance.slug = random_string

@@ -34,6 +34,9 @@ class SeekerCreateView(generics.CreateAPIView):
     serializer_class = SeekerSerializer
     queryset = Seeker.objects.all()
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class SeekerDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SeekerSerializer

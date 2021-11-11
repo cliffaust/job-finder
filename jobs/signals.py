@@ -11,3 +11,10 @@ def create_slug(sender, instance, *args, **kwargs):
         slug = slugify(instance.company_name)
         random_string = generate_random_string()
         instance.slug = slug + "-" + random_string
+
+
+@receiver(pre_save, sender=Company)
+def create_seeker_slug(sender, instance, *args, **kwargs):
+    if instance and not instance.slug:
+        random_string = generate_random_string()
+        instance.slug = random_string

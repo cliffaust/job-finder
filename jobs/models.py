@@ -13,7 +13,6 @@ class Company(models.Model):
     work_email = models.EmailField(max_length=255, unique=True)
     phone_number = PhoneNumberField(blank=True)
     current_role = models.CharField(max_length=100, blank=True)
-    country = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return str(self.company_name)

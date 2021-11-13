@@ -6,10 +6,10 @@ from core.utils import cv_thumbnail
 
 class Company(models.Model):
     slug = models.SlugField(max_length=255, blank=True, null=True)
-    first_name = models.CharField(max_length=150, required=True)
-    last_name = models.CharField(max_length=150, required=True)
-    company_name = models.CharField(max_length=255, required=True)
-    job_title = models.CharField(max_length=255, required=True)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    company_name = models.CharField(max_length=255)
+    job_title = models.CharField(max_length=255)
     work_email = models.EmailField(max_length=255, unique=True)
     phone_number = PhoneNumberField(blank=True)
     current_role = models.CharField(max_length=100, blank=True)

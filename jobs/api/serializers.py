@@ -5,6 +5,7 @@ from jobs.models import Company, Seeker
 
 class SeekerSerializer(serializers.ModelSerializer):
     company = serializers.StringRelatedField(read_only=True)
+    slug = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Seeker

@@ -1,6 +1,6 @@
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from .models import Company
+from .models import Company, Seeker
 from django.utils.text import slugify
 from core.utils import generate_random_string
 
@@ -13,7 +13,7 @@ def create_slug(sender, instance, *args, **kwargs):
         instance.slug = slug + "-" + random_string
 
 
-@receiver(pre_save, sender=Company)
+@receiver(pre_save, sender=Seeker)
 def create_seeker_slug(sender, instance, *args, **kwargs):
     if instance and not instance.slug:
         random_string = generate_random_string(length=24)

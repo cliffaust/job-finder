@@ -52,7 +52,7 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
 
     list_display = ("first_name", "last_name", "email", "is_admin", "is_company")
-    list_filter = ("is_admin", "is_company")
+    list_filter = ("is_admin", "is_superuser", "is_company")
     fieldsets = (
         (None, {"fields": ("email", "password", "first_name", "last_name", "is_company")}),
         ("Personal info", {"fields": ["profile_pic"]}),
@@ -73,7 +73,7 @@ class UserAdmin(BaseUserAdmin):
                     "password2",
                     "is_admin",
                     "is_staff",
-                    "is_company"
+                    "is_company",
                     "is_superuser",
                 ),
             },

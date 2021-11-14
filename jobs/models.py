@@ -16,6 +16,7 @@ class Job(models.Model):
     phone_number = PhoneNumberField(blank=True, null=True)
     requirements = models.TextField(blank=True, null=True)
     current_role = models.CharField(max_length=100, blank=True)
+    is_closed = models.BooleanField(default=False)
     date_posted = models.DateField(default=timezone.now)
 
     def __str__(self):

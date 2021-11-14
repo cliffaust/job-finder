@@ -32,5 +32,17 @@ class Seeker(models.Model):
     phone_number = PhoneNumberField(blank=True)
     other_comment = models.TextField(blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            saved_cv = self.cv
+            self.cv = None
+            super(Seeker, self).save(*args, **kwargs)
+
+            self.cv = saved_cv
+            if "force_insert" in kwargs:
+                kwargs.pop("force_insert")
+
+        super(Seeker, self).save(*args, **kwargs)
+
     def __str__(self):
         return str(self.user)

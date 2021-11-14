@@ -1,28 +1,28 @@
-from .serializers import CompanySerializer, SeekerSerializer
-from jobs.models import Company, Seeker
+from .serializers import JobSerializer, SeekerSerializer
+from jobs.models import Job, Seeker
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 
-class CompanyListView(generics.ListAPIView):
-    serializer_class = CompanySerializer
-    queryset = Company.objects.all()
+class JobListView(generics.ListAPIView):
+    serializer_class = JobSerializer
+    queryset = Job.objects.all()
 
 
-class CompanyCreateView(generics.CreateAPIView):
-    serializer_class = CompanySerializer
-    queryset = Company.objects.all()
+class JobCreateView(generics.CreateAPIView):
+    serializer_class = JobSerializer
+    queryset = Job.objects.all()
 
 
-class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CompanySerializer
+class JobDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = JobSerializer
 
     def get_queryset(self):
-        queryset = Company.objects.all()
+        queryset = Job.objects.all()
         slug = self.kwargs.get("slug")
 
         if slug is not None:
-            queryset = Company.objects.filter(slug=slug)
+            queryset = Job.objects.filter(slug=slug)
         return queryset
 
 

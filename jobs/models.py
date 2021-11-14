@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from core.utils import cv_thumbnail
 
 
-class Company(models.Model):
+class Job(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255, blank=True, null=True)
     first_name = models.CharField(max_length=150)
@@ -24,8 +24,8 @@ class Company(models.Model):
 class Seeker(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255, blank=True, null=True)
-    company = models.ForeignKey(
-        Company, on_delete=models.CASCADE, related_name="seekers"
+    job = models.ForeignKey(
+        Job, on_delete=models.CASCADE, related_name="seekers"
     )
     cv = models.FileField(
         upload_to=cv_thumbnail,

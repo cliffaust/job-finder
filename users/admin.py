@@ -1,5 +1,4 @@
-from django.contrib import admin
-from .models import CustomUser
+from .models import CustomUser, Company
 
 from django import forms
 from django.contrib import admin
@@ -84,6 +83,50 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
+class CompanyChangeForm(forms.ModelForm):
+
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = Company
+        exclude = []
+
+    def clean_password(self):
+
+        return self.initial["password"]
+
+
+class CompanyAdmin(BaseUserAdmin):
+
+    form = CompanyChangeForm
+    add_form = UserCreationForm
+
+    list_display = ("company_name", "email")
+    list_filter = ("email",)
+    fieldsets = (
+        (None, {"fields": ("email", "password", "company_name")}),
+        ("Personal info", {"fields": ["profile_pic"]})),
+
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "company_name",
+                    "email",
+                    "profile_pic",
+                    "password1",
+                    "password2",
+                ),
+            },
+        ),
+    )
+    search_fields = ("email", "company_name")
+    ordering = ("email", "company_name")
+    filter_horizontal = ()
+
+
 admin.site.register(CustomUser, UserAdmin)
 
-# admin.site.unregister(Group)
+admin.site.register(CustomUser, CompanyAdmin)

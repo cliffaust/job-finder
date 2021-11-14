@@ -6,6 +6,7 @@ from core.utils import cv_thumbnail
 
 
 class Company(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255, blank=True, null=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)

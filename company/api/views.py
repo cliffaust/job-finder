@@ -18,7 +18,14 @@ class CompanyCreateView(generics.CreateAPIView):
 
 class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanySerializer
-    queryset = Company.objects.all()
+
+    def get_queryset(self):
+        queryset = Company.objects.all()
+        slug = self.kwargs.get("slug")
+
+        if slug is not None:
+            queryset = Company.objects.filter(slug=slug)
+        return queryset
 
 
 class CompanyProfileListView(generics.ListAPIView):
@@ -39,7 +46,14 @@ class CompanyProfileCreateView(generics.CreateAPIView):
 
 class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanyProfileSerializer
-    queryset = CompanyProfile.objects.all()
+
+    def get_queryset(self):
+        queryset = CompanyProfile.objects.all()
+        slug = self.kwargs.get("slug")
+
+        if slug is not None:
+            queryset = CompanyProfile.objects.filter(slug=slug)
+        return queryset
 
 
 class CompanyProfileImageListView(generics.ListAPIView):
@@ -60,4 +74,7 @@ class CompanyProfileImageCreateView(generics.CreateAPIView):
 
 class CompanyProfileImageDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanyProfileImageSerializer
-    queryset = CompanyProfileImages.objects.all()
+
+    def get_queryset(self):
+        queryset = CompanyProfileImages.objects.all()
+        return queryset

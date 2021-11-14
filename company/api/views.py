@@ -55,6 +55,8 @@ class CompanyProfileImageCreateView(generics.CreateAPIView):
         company_profile_slug = self.kwargs.get("company_profile_slug")
         company_profile = generics.get_object_or_404(CompanyProfile, slug=company_profile_slug)
 
+        serializer.save(company_profile=company_profile)
+
 
 class CompanyProfileImageDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanyProfileImageSerializer

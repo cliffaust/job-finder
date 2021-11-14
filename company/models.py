@@ -26,7 +26,7 @@ class CompanyProfile(models.Model):
 
 
 class CompanyProfileImages(models.Model):
-    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, related_name="company_images")
+    company_profile = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, related_name="company_images")
     image = ProcessedImageField(
         processors=[Resize(1000, 760)],
         format="JPEG",
@@ -35,4 +35,4 @@ class CompanyProfileImages(models.Model):
     comment = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.company.company_name
+        return str(self.company_profile)

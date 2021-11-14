@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "phonenumber_field",
     "django_filters",
+    'imagekit',
     "users",
     'jobs',
     'django_cleanup.apps.CleanupConfig',  # should be placed last

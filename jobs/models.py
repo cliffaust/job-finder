@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from core.utils import cv_thumbnail
-from users.models import Company
+from company.models import Company
 
 
 class Job(models.Model):

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'imagekit',
     "users",
     'jobs',
+    'company',
     'django_cleanup.apps.CleanupConfig',  # should be placed last
 ]
 

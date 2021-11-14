@@ -13,7 +13,7 @@ class Company(models.Model):
 
 
 class CompanyProfile(models.Model):
-    company = models.OneToOneField(Company, on_delete=models.CASCADE)
+    company = models.OneToOneField(Company, on_delete=models.CASCADE, related_name="company_profile")
     num_of_employees = models.PositiveIntegerField(blank=True, null=True)
     year_started = models.PositiveIntegerField(blank=True, null=True)
     about_company = models.TextField(blank=True, null=True)
@@ -24,7 +24,7 @@ class CompanyProfile(models.Model):
 
 
 class CompanyProfileImages(models.Model):
-    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)
+    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, related_name="company_images")
     image = ProcessedImageField(
         processors=[Resize(1000, 760)],
         format="JPEG",

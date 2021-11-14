@@ -13,7 +13,8 @@ class Job(models.Model):
     last_name = models.CharField(max_length=150)
     job_title = models.CharField(max_length=255)
     work_email = models.EmailField(max_length=255, unique=True)
-    phone_number = PhoneNumberField(blank=True)
+    phone_number = PhoneNumberField(blank=True, null=True)
+    requirements = models.TextField(blank=True, null=True)
     current_role = models.CharField(max_length=100, blank=True)
     date_posted = models.DateField(default=timezone.now)
 

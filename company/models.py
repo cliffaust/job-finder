@@ -5,6 +5,7 @@ from imagekit.processors import Resize
 
 
 class Company(models.Model):
+    slug = models.SlugField(max_length=255, blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=500, blank=True, null=True)
 
@@ -13,6 +14,7 @@ class Company(models.Model):
 
 
 class CompanyProfile(models.Model):
+    slug = models.SlugField(max_length=255, blank=True, null=True)
     company = models.OneToOneField(Company, on_delete=models.CASCADE, related_name="company_profile")
     num_of_employees = models.PositiveIntegerField(blank=True, null=True)
     year_started = models.PositiveIntegerField(blank=True, null=True)

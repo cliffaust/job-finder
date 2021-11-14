@@ -12,6 +12,9 @@ class CompanyCreateView(generics.CreateAPIView):
     serializer_class = CompanySerializer
     queryset = Company.objects.all()
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanySerializer
@@ -27,6 +30,12 @@ class CompanyProfileCreateView(generics.CreateAPIView):
     serializer_class = CompanyProfileSerializer
     queryset = CompanyProfile.objects.all()
 
+    def perform_create(self, serializer):
+        company_slug = self.kwargs.get("company_slug")
+        company = generics.get_object_or_404(Company, slug=company_slug)
+
+        serializer.save(company=company)
+
 
 class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanyProfileSerializer
@@ -41,6 +50,10 @@ class CompanyProfileImageListView(generics.ListAPIView):
 class CompanyProfileImageCreateView(generics.CreateAPIView):
     serializer_class = CompanyProfileImageSerializer
     queryset = CompanyProfileImages.objects.all()
+
+    def perform_create(self, serializer):
+        company_profile_slug = self.kwargs.get("company_profile_slug")
+        company_profile = generics.get_object_or_404(CompanyProfile, slug=company_profile_slug)
 
 
 class CompanyProfileImageDetailView(generics.RetrieveUpdateDestroyAPIView):

@@ -1,4 +1,4 @@
-from .models import CustomUser, Company
+from .models import CustomUser
 
 from django import forms
 from django.contrib import admin
@@ -51,10 +51,10 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ("first_name", "last_name", "email", "is_admin")
-    list_filter = ("is_admin",)
+    list_display = ("first_name", "last_name", "email", "is_admin", "is_company")
+    list_filter = ("is_admin", "is_company")
     fieldsets = (
-        (None, {"fields": ("email", "password", "first_name", "last_name")}),
+        (None, {"fields": ("email", "password", "first_name", "last_name", "is_company")}),
         ("Personal info", {"fields": ["profile_pic"]}),
         ("Permissions", {"fields": ("is_admin", "is_staff", "is_superuser")}),
     )
@@ -73,6 +73,7 @@ class UserAdmin(BaseUserAdmin):
                     "password2",
                     "is_admin",
                     "is_staff",
+                    "is_company"
                     "is_superuser",
                 ),
             },
@@ -83,50 +84,4 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-class CompanyChangeForm(forms.ModelForm):
-
-    password = ReadOnlyPasswordHashField()
-
-    class Meta:
-        model = Company
-        exclude = []
-
-    def clean_password(self):
-
-        return self.initial["password"]
-
-
-class CompanyAdmin(BaseUserAdmin):
-
-    form = CompanyChangeForm
-    add_form = UserCreationForm
-
-    list_display = ("company_name", "email")
-    list_filter = ("email",)
-    fieldsets = (
-        (None, {"fields": ("email", "password", "company_name")}),
-        ("Personal info", {"fields": ["profile_pic"]})),
-
-    add_fieldsets = (
-        (
-            None,
-            {
-                "classes": ("wide",),
-                "fields": (
-                    "company_name",
-                    "email",
-                    "profile_pic",
-                    "password1",
-                    "password2",
-                ),
-            },
-        ),
-    )
-    search_fields = ("email", "company_name")
-    ordering = ("email", "company_name")
-    filter_horizontal = ()
-
-
 admin.site.register(CustomUser, UserAdmin)
-
-admin.site.register(CustomUser, CompanyAdmin)

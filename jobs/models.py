@@ -3,14 +3,14 @@ from django.conf import settings
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from core.utils import cv_thumbnail
+from users.models import Company
 
 
 class Job(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255, blank=True, null=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    company_name = models.CharField(max_length=255)
     job_title = models.CharField(max_length=255)
     work_email = models.EmailField(max_length=255, unique=True)
     phone_number = PhoneNumberField(blank=True)
@@ -18,7 +18,7 @@ class Job(models.Model):
     date_posted = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return str(self.company_name)
+        return str(self.company.company_name)
 
 
 class Seeker(models.Model):

@@ -15,6 +15,7 @@ class SeekerSerializer(serializers.ModelSerializer):
 class CompanySerializer(serializers.ModelSerializer):
     slug = serializers.StringRelatedField(read_only=True)
     seekers = SeekerSerializer(many=True)
+    date_posted = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Company

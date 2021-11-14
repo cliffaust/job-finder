@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from core.utils import cv_thumbnail
 
@@ -13,6 +14,7 @@ class Company(models.Model):
     work_email = models.EmailField(max_length=255, unique=True)
     phone_number = PhoneNumberField(blank=True)
     current_role = models.CharField(max_length=100, blank=True)
+    date_posted = models.DateField(default=timezone.now)
 
     def __str__(self):
         return str(self.company_name)

@@ -5,7 +5,6 @@ from .serializer import UserSerializer
 from users.models import CustomUser
 
 
-
 class UserProfileView(generics.ListAPIView):
     serializer_class = UserSerializer
     pagination_class = None

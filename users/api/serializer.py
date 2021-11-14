@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'first_name', 'last_name', 'profile_pic']
+        fields = ['id', 'email', 'first_name', 'last_name', 'is_company', 'profile_pic']
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -25,6 +25,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             "email",
             "first_name",
             "last_name",
+            'is_company',
             "profile_pic",
             "password1",
             "password2",
@@ -51,6 +52,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return {
             "first_name": self.validated_data.get("first_name", ""),
             "last_name": self.validated_data.get("last_name", ""),
+            "is_company": self.validated_data.get("is_company", ""),
             "profile_pic": self.validated_data.get("profile_pic", ""),
             "password1": self.validated_data.get("password1", ""),
             "email": self.validated_data.get("email", ""),

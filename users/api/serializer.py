@@ -4,7 +4,6 @@ from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from rest_framework import serializers
 from users.models import CustomUser, Company
-from django.conf import settings
 
 
 class UserSerializer(serializers.ModelSerializer):

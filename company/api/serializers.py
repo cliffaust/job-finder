@@ -11,6 +11,7 @@ class CompanyProfileImageSerializer(serializers.ModelSerializer):
 
 
 class CompanyProfileSerializer(serializers.ModelSerializer):
+    slug = serializers.StringRelatedField(read_only=True)
     company = serializers.StringRelatedField(read_only=True)
     company_images = CompanyProfileImageSerializer(many=True, read_only=True)
 
@@ -20,6 +21,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
 
 
 class CompanySerializer(serializers.ModelSerializer):
+    slug = serializers.StringRelatedField(read_only=True)
     company_profile = CompanyProfileSerializer(read_only=True)
 
     class Meta:

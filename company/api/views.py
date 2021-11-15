@@ -1,6 +1,9 @@
 from rest_framework import generics
 from .serializers import CompanySerializer, CompanyProfileSerializer, CompanyProfileImageSerializer
 from company.models import Company, CompanyProfile, CompanyProfileImages
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsUserInstance
 
 
 class CompanyListView(generics.ListAPIView):
@@ -13,11 +16,14 @@ class CompanyCreateView(generics.CreateAPIView):
     queryset = Company.objects.all()
 
     def perform_create(self, serializer):
+        if not self.request.user.is_company:
+            raise PermissionDenied("Your account isn't a company account, please create one to proceed")
         serializer.save(user=self.request.user)
 
 
 class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanySerializer
+    permission_classes = [IsAuthenticated, IsUserInstance]
     lookup_field = "slug"
 
     def get_queryset(self):

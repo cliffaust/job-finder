@@ -20,7 +20,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
 
 
 class CompanySerializer(serializers.ModelSerializer):
-    company_profile = CompanyProfileSerializer(many=True, read_only=True)
+    company_profile = CompanyProfileSerializer(read_only=True)
 
     class Meta:
         model = Company

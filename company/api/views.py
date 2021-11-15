@@ -18,6 +18,7 @@ class CompanyCreateView(generics.CreateAPIView):
 
 class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanySerializer
+    lookup_field = "slug"
 
     def get_queryset(self):
         queryset = Company.objects.all()
@@ -46,6 +47,7 @@ class CompanyProfileCreateView(generics.CreateAPIView):
 
 class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanyProfileSerializer
+    lookup_field = "slug"
 
     def get_queryset(self):
         queryset = CompanyProfile.objects.all()

@@ -22,6 +22,7 @@ from users.views import GoogleLogin, FacebookLogin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/", include("jobs.api.urls")),
+    path("api/v1/", include("company.api.urls")),
     path("api/v1/", include("users.api.urls")),
     path("api/v1/rest-auth/", include("rest_auth.urls")),
     path("api/v1/rest-auth/registration/", include("rest_auth.registration.urls")),

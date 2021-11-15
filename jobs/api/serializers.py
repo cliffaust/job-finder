@@ -14,7 +14,7 @@ class SeekerSerializer(serializers.ModelSerializer):
 
 class JobSerializer(serializers.ModelSerializer):
     slug = serializers.StringRelatedField(read_only=True)
-    seekers = SeekerSerializer(many=True)
+    seekers = SeekerSerializer(many=True, read_only=True)
     date_posted = serializers.StringRelatedField(read_only=True)
 
     class Meta:

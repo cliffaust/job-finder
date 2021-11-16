@@ -2,6 +2,7 @@ from .serializers import JobSerializer, SeekerSerializer
 from jobs.models import Job, Seeker
 from rest_framework import generics
 from company.models import Company
+from .permissions import IsCompanyJobInstance
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 
@@ -38,7 +39,7 @@ class JobCreateView(generics.CreateAPIView):
 
 class JobDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsCompanyJobInstance]
     lookup_field = "slug"
 
     def get_queryset(self):

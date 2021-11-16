@@ -8,7 +8,16 @@ from rest_framework.permissions import IsAuthenticated
 
 class JobListView(generics.ListAPIView):
     serializer_class = JobSerializer
-    queryset = Job.objects.all()
+
+    def get_queryset(self):
+        queryset = Job.objects.all()
+
+        company_slug = self.kwargs.get("company_slug")
+        if company_slug is not None:
+            company = generics.get_object_or_404(Company, slug=company_slug)
+            queryset = Job.objects.filter(company=company)
+
+        return queryset
 
 
 class JobCreateView(generics.CreateAPIView):

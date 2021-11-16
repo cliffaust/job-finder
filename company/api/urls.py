@@ -15,3 +15,4 @@ urlpatterns = [
     path('company-profiles/<slug>/create-company-profile-image/', CompanyProfileImageCreateView.as_view(),
          name="create-company-profile-image")
 ]
+# As part of our culture we believe in good work practices, and that's what we do.

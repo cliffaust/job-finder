@@ -38,6 +38,8 @@ class JobCreateView(generics.CreateAPIView):
 
 class JobDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = "slug"
 
     def get_queryset(self):
         queryset = Job.objects.all()
@@ -75,6 +77,7 @@ class SeekerCreateView(generics.CreateAPIView):
 
 class SeekerDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SeekerSerializer
+    lookup_field = "slug"
 
     def get_queryset(self):
         queryset = Seeker.objects.all()

@@ -3,7 +3,6 @@ from .serializers import CompanySerializer, CompanyProfileSerializer, CompanyPro
 from company.models import Company, CompanyProfile, CompanyProfileImages
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.validators import ValidationError
 from .permissions import IsUserInstance, IsCompanyInstanceProfile, IsCompanyInstanceProfileImage
 
 

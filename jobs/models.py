@@ -14,9 +14,10 @@ class Job(models.Model):
     job_title = models.CharField(max_length=255)
     work_email = models.EmailField(max_length=255, unique=True)
     phone_number = PhoneNumberField(blank=True, null=True)
-    requirements = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     current_role = models.CharField(max_length=100, blank=True)
     is_closed = models.BooleanField(default=False)
+    number_of_applicant = models.PositiveIntegerField()
     date_posted = models.DateField(default=timezone.now)
 
     def __str__(self):
@@ -26,9 +27,7 @@ class Job(models.Model):
 class Seeker(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255, blank=True, null=True)
-    job = models.ForeignKey(
-        Job, on_delete=models.CASCADE, related_name="seekers"
-    )
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="seekers")
     cv = models.FileField(
         upload_to=cv_thumbnail,
         blank=True,

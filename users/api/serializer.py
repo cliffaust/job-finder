@@ -7,16 +7,16 @@ from users.models import CustomUser
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'first_name', 'last_name', 'is_company', 'profile_pic']
+        fields = ["id", "email", "first_name", "last_name", "is_company", "profile_pic"]
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
     email = serializers.EmailField(required=True)
+    is_company = serializers.BooleanField(required=False)
 
     class Meta:
         model = CustomUser
@@ -24,7 +24,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             "email",
             "first_name",
             "last_name",
-            'is_company',
+            "is_company",
             "profile_pic",
             "password1",
             "password2",
@@ -35,7 +35,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         if allauth_settings.UNIQUE_EMAIL:
             if email and email_address_exists(email):
                 raise serializers.ValidationError(
-                    ("A user is already registered with this e-mail address.", )
+                    ("A user is already registered with this e-mail address.",)
                 )
         return email
 
@@ -44,7 +44,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if data["password1"] != data["password2"]:
-            raise serializers.ValidationError(("The two password fields didn't match.", ))
+            raise serializers.ValidationError(
+                ("The two password fields didn't match.",)
+            )
         return data
 
     def get_cleaned_data(self):
@@ -64,6 +66,8 @@ class RegisterSerializer(serializers.ModelSerializer):
         adapter.save_user(request, user, self)
         if self.cleaned_data.get("profile_pic"):
             user.profile_pic = self.cleaned_data.get("profile_pic")
+        if self.cleaned_data.get("is_company"):
+            user.is_company = self.cleaned_data.get("is_company")
         setup_user_email(request, user, [])
         user.save()
         return user

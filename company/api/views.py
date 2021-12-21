@@ -1,38 +1,12 @@
 from rest_framework import generics
-from .serializers import CompanySerializer, CompanyProfileSerializer, CompanyProfileImageSerializer
-from company.models import Company, CompanyProfile, CompanyProfileImages
+from .serializers import (
+    CompanyProfileSerializer,
+    CompanyProfileImageSerializer,
+)
+from company.models import CompanyProfile, CompanyProfileImages
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsUserInstance, IsCompanyInstanceProfile, IsCompanyInstanceProfileImage
-
-
-class CompanyListView(generics.ListAPIView):
-    serializer_class = CompanySerializer
-    queryset = Company.objects.all()
-
-
-class CompanyCreateView(generics.CreateAPIView):
-    serializer_class = CompanySerializer
-    queryset = Company.objects.all()
-
-    def perform_create(self, serializer):
-        if not self.request.user.is_company:
-            raise PermissionDenied("Your account isn't a company account, please create one to proceed")
-        return serializer.save(user=self.request.user)
-
-
-class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CompanySerializer
-    permission_classes = [IsAuthenticated, IsUserInstance]
-    lookup_field = "slug"
-
-    def get_queryset(self):
-        queryset = Company.objects.all()
-        slug = self.kwargs.get("slug")
-
-        if slug is not None:
-            queryset = Company.objects.filter(slug=slug)
-        return queryset
+from .permissions import IsCompanyInstanceProfileImage, IsUserInstance
 
 
 class CompanyProfileListView(generics.ListAPIView):
@@ -46,17 +20,13 @@ class CompanyProfileCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        company_slug = self.kwargs.get("company_slug")
-        company = generics.get_object_or_404(Company, slug=company_slug)
 
-        if company.user != self.request.user:
-            raise PermissionDenied("You can't add to profile to this Company")
-        return serializer.save(company=company)
+        return serializer.save(user=self.request.user)
 
 
 class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanyProfileSerializer
-    permission_classes = [IsAuthenticated, IsCompanyInstanceProfile]
+    permission_classes = [IsAuthenticated, IsUserInstance]
     lookup_field = "slug"
 
     def get_queryset(self):
@@ -66,6 +36,14 @@ class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
         if slug is not None:
             queryset = CompanyProfile.objects.filter(slug=slug)
         return queryset
+
+
+class UserCompanyProfile(generics.RetrieveAPIView):
+    serializer_class = CompanyProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return CompanyProfile.objects.filter(user=self.request.user)
 
 
 class CompanyProfileImageListView(generics.ListAPIView):
@@ -80,9 +58,11 @@ class CompanyProfileImageCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         company_profile_slug = self.kwargs.get("company_profile_slug")
-        company_profile = generics.get_object_or_404(CompanyProfile, slug=company_profile_slug)
+        company_profile = generics.get_object_or_404(
+            CompanyProfile, slug=company_profile_slug
+        )
 
-        if company_profile.company.user != self.request.user:
+        if company_profile.user != self.request.user:
             raise PermissionDenied("You can't add to image profile to this Company")
 
         return serializer.save(company_profile=company_profile)

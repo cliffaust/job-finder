@@ -1,12 +1,11 @@
-from company.models import CompanyProfile, Company, CompanyProfileImages
+from company.models import CompanyProfile, CompanyProfileImages
 from rest_framework import serializers
 
 
 class CompanyProfileImageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = CompanyProfileImages
-        exclude = ['company_profile']
+        exclude = ["company_profile"]
 
 
 class CompanyProfileSerializer(serializers.ModelSerializer):
@@ -15,13 +14,4 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CompanyProfile
-        exclude = ['company']
-
-
-class CompanySerializer(serializers.ModelSerializer):
-    slug = serializers.StringRelatedField(read_only=True)
-    company_profile = CompanyProfileSerializer(read_only=True)
-
-    class Meta:
-        model = Company
-        exclude = ['user']
+        fields = "__all__"

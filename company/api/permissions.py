@@ -9,18 +9,9 @@ class IsUserInstance(permissions.BasePermission):
             return True
 
 
-class IsCompanyInstanceProfile(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        elif obj.company.user == request.user:
-            return True
-
-
 class IsCompanyInstanceProfileImage(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        elif obj.company_profile.company.user == request.user:
+        elif obj.company_profile.user == request.user:
             return True
-

@@ -46,7 +46,7 @@ class UserCompanyProfile(generics.RetrieveAPIView):
     serializer_class = CompanyProfileSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
+    def get_object(self):
         return CompanyProfile.objects.filter(user=self.request.user)
 
 

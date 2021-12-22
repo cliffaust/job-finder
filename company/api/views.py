@@ -20,8 +20,12 @@ class CompanyProfileCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-
-        return serializer.save(user=self.request.user)
+        if self.request.user.is_company:
+            return serializer.save(user=self.request.user)
+        else:
+            raise PermissionDenied(
+                "Your account isn't a company account, create a company account if you want to add a company profile"
+            )
 
 
 class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):

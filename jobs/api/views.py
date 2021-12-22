@@ -1,7 +1,7 @@
 from .serializers import JobSerializer, SeekerSerializer
 from jobs.models import Job, Seeker
 from rest_framework import generics
-from company.models import Company
+from company.models import CompanyProfile
 from .permissions import IsCompanyJobInstance
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
@@ -13,9 +13,11 @@ class JobListView(generics.ListAPIView):
     def get_queryset(self):
         queryset = Job.objects.all()
 
-        company_slug = self.kwargs.get("company_slug")
-        if company_slug is not None:
-            company = generics.get_object_or_404(Company, slug=company_slug)
+        company_profile_slug = self.kwargs.get("company_profile_slug")
+        if company_profile_slug is not None:
+            company = generics.get_object_or_404(
+                CompanyProfile, slug=company_profile_slug
+            )
             queryset = Job.objects.filter(company=company)
 
         return queryset
@@ -28,8 +30,8 @@ class JobCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
 
-        company_slug = self.kwargs.get("company_slug")
-        company = generics.get_object_or_404(Company, slug=company_slug)
+        company_profile_slug = self.kwargs.get("company_profile_slug")
+        company = generics.get_object_or_404(CompanyProfile, slug=company_profile_slug)
 
         if company.user == self.request.user:
             raise PermissionDenied("You can't add a job to this home")

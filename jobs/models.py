@@ -3,11 +3,11 @@ from django.conf import settings
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from core.utils import cv_thumbnail
-from company.models import Company
+from company.models import CompanyProfile
 
 
 class Job(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255, blank=True, null=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)

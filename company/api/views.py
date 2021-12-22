@@ -42,7 +42,7 @@ class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
         return queryset
 
 
-class UserCompanyProfile(generics.RetrieveAPIView):
+class UserCompanyProfile(generics.RetrieveUpdateAPIView):
     serializer_class = CompanyProfileSerializer
     permission_classes = [IsAuthenticated]
 

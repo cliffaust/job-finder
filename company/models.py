@@ -11,7 +11,7 @@ class CompanyProfile(models.Model):
     num_of_employees = models.PositiveIntegerField(blank=True, null=True)
     year_started = models.PositiveIntegerField(blank=True, null=True)
     about_company = models.TextField(blank=True, null=True)
-    values = models.TextField(blank=True, null=True)
+    company_values = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return str(self.company_name)

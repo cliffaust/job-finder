@@ -14,7 +14,7 @@ class CompanyProfile(models.Model):
     company_values = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.company_name)
+        return f"{self.company_name} - {self.user}"
 
 
 class CompanyProfileImages(models.Model):

@@ -42,12 +42,14 @@ class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
         return queryset
 
 
-class UserCompanyProfile(generics.RetrieveUpdateAPIView):
+class UserCompanyProfile(generics.RetrieveUpdateDestroyAPIView):
+    model = CompanyProfile
     serializer_class = CompanyProfileSerializer
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        return CompanyProfile.objects.filter(user=self.request.user)
+        queryset = generics.get_object_or_404(CompanyProfile, user=self.request.user)
+        return queryset
 
 
 class CompanyProfileImageListView(generics.ListAPIView):

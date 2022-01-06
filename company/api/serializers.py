@@ -11,7 +11,8 @@ class CompanyProfileImageSerializer(serializers.ModelSerializer):
 class CompanyProfileSerializer(serializers.ModelSerializer):
     slug = serializers.StringRelatedField(read_only=True)
     company_images = CompanyProfileImageSerializer(many=True, read_only=True)
+    user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = CompanyProfile
-        exclude = ["user"]
+        fields = "__all__"

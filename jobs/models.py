@@ -17,7 +17,6 @@ class Job(models.Model):
     description = models.TextField(blank=True, null=True)
     current_role = models.CharField(max_length=255, blank=True)
     is_closed = models.BooleanField(default=False)
-    number_of_applicant = models.PositiveIntegerField()
     date_posted = models.DateField(default=timezone.now)
 
     def __str__(self):

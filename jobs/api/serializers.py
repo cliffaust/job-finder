@@ -13,10 +13,13 @@ class SeekerSerializer(serializers.ModelSerializer):
 
 class JobSerializer(serializers.ModelSerializer):
     slug = serializers.StringRelatedField(read_only=True)
-    # seekers = SeekerSerializer(many=True, read_only=True)
+    seekers = serializers.SerializerMethodField()
     date_posted = serializers.StringRelatedField(read_only=True)
     company = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Job
-        fields = '__all__'
+        fields = "__all__"
+
+    def get_seekers(self, instance):
+        return instance.seekers.count()

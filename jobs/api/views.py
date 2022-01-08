@@ -33,7 +33,7 @@ class JobCreateView(generics.CreateAPIView):
         company_profile_slug = self.kwargs.get("company_profile_slug")
         company = generics.get_object_or_404(CompanyProfile, slug=company_profile_slug)
 
-        if company.user == self.request.user:
+        if company.user != self.request.user:
             raise PermissionDenied("You can't add a job to this home")
 
         serializer.save(company=company)

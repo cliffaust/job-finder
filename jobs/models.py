@@ -15,7 +15,7 @@ class Job(models.Model):
     work_email = models.EmailField(max_length=255, unique=True)
     phone_number = PhoneNumberField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    current_role = models.CharField(max_length=100, blank=True)
+    current_role = models.CharField(max_length=255, blank=True)
     is_closed = models.BooleanField(default=False)
     number_of_applicant = models.PositiveIntegerField()
     date_posted = models.DateField(default=timezone.now)

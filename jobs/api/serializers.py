@@ -29,4 +29,4 @@ class JobSerializer(serializers.ModelSerializer):
         return instance.company.company_name
 
     def get_company_profile_image(self, instance):
-        return instance.company.user.profile_pic.url
+        return instance.company.user.profile_pic

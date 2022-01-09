@@ -20,7 +20,7 @@ class Job(models.Model):
     description = models.TextField(blank=True, null=True)
     current_role = models.CharField(max_length=255, blank=True)
     is_closed = models.BooleanField(default=False)
-    date_posted = models.DateField(default=timezone.now)
+    date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.company.company_name)

@@ -26,7 +26,7 @@ class CompanyProfileImages(models.Model):
         format="JPEG",
         options={"quality": 60},
     )
-    comment = models.TextField(blank=True, null=True)
+    comment = models.CharField(blank=True, null=True, max_length=100)
 
     def __str__(self):
         return str(self.company_profile)

@@ -16,3 +16,7 @@ def profile_image_thumbnail(instance, filename):
 
 def cv_thumbnail(instance, filename):
     return f"cv/{instance.id}/{filename}"
+
+
+def transcript_thumbnail(instance, filename):
+    return f"transcript/{instance.id}/{filename}"

@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
-from core.utils import cv_thumbnail
+from core.utils import cv_thumbnail, transcript_thumbnail
 from company.models import CompanyProfile
 
 
@@ -35,6 +35,11 @@ class Seeker(models.Model):
         blank=True,
         null=True,
     )
+    transcript = models.FileField(
+        upload_to=transcript_thumbnail,
+        blank=True,
+        null=True,
+    )
     phone_number = PhoneNumberField(blank=True)
     email = models.EmailField(max_length=255, blank=True, null=True, unique=True)
     other_comment = models.TextField(blank=True, null=True)
@@ -43,9 +48,12 @@ class Seeker(models.Model):
         if self.pk is None:
             saved_cv = self.cv
             self.cv = None
+            saved_transcript = self.transcript
+            self.transcript = None
             super(Seeker, self).save(*args, **kwargs)
 
             self.cv = saved_cv
+            self.transcript = saved_transcript
             if "force_insert" in kwargs:
                 kwargs.pop("force_insert")
 

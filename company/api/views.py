@@ -30,7 +30,7 @@ class CompanyProfileCreateView(generics.CreateAPIView):
 
 class CompanyProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanyProfileSerializer
-    permission_classes = [IsAuthenticated, IsUserInstance]
+    permission_classes = [IsUserInstance]
     lookup_field = "slug"
 
     def get_queryset(self):
@@ -76,7 +76,7 @@ class CompanyProfileImageCreateView(generics.CreateAPIView):
 
 class CompanyProfileImageDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanyProfileImageSerializer
-    permission_classes = [IsAuthenticated, IsCompanyInstanceProfileImage]
+    permission_classes = [IsCompanyInstanceProfileImage]
 
     def get_queryset(self):
         queryset = CompanyProfileImages.objects.all()

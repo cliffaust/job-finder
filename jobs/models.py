@@ -36,6 +36,7 @@ class Seeker(models.Model):
         null=True,
     )
     phone_number = PhoneNumberField(blank=True)
+    email = models.EmailField(max_length=255, blank=True, null=True, unique=True)
     other_comment = models.TextField(blank=True, null=True)
 
     def save(self, *args, **kwargs):

@@ -73,9 +73,11 @@ class SeekerCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
+        print("this is the beginning...")
         job_slug = self.kwargs.get("job_slug")
         job = generics.get_object_or_404(Job, slug=job_slug)
-        serializer.save(user=self.request.user, job=job)
+        print("this is user ", self.request.user)
+        serializer.save(job=job, user=self.request.user)
 
 
 class SeekerDetailView(generics.RetrieveUpdateDestroyAPIView):

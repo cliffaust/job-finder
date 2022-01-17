@@ -43,6 +43,7 @@ class Seeker(models.Model):
     phone_number = PhoneNumberField(blank=True)
     email = models.EmailField(max_length=255, blank=True, null=True, unique=True)
     other_comment = models.TextField(blank=True, null=True)
+    date_posted = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         if self.pk is None:

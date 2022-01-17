@@ -11,6 +11,12 @@ class SeekerSerializer(serializers.ModelSerializer):
         model = Seeker
         exclude = ["job"]
 
+    def get_user_profile_image(self, instance):
+        return instance.user.profile_pic.url
+
+    def get_name(self, instance):
+        return f"{instance.user.first_name} {instance.user.last_name}"
+
 
 class JobSerializer(serializers.ModelSerializer):
     slug = serializers.StringRelatedField(read_only=True)

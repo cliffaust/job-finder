@@ -25,6 +25,7 @@ class JobSerializer(serializers.ModelSerializer):
     num_applicants = serializers.SerializerMethodField()
     company = serializers.StringRelatedField(read_only=True)
     company_name = serializers.SerializerMethodField()
+    company_slug = serializers.SerializerMethodField()
     company_profile_image = serializers.SerializerMethodField()
 
     class Meta:
@@ -36,6 +37,9 @@ class JobSerializer(serializers.ModelSerializer):
 
     def get_company_name(self, instance):
         return instance.company.company_name
+
+    def get_company_slug(self, instance):
+        return instance.company.slug
 
     def get_company_profile_image(self, instance):
         return instance.company.user.profile_pic.url

@@ -82,7 +82,6 @@ class SeekerCreateView(generics.CreateAPIView):
 
 class SeekerDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SeekerSerializer
-    permission_classes = [IsAuthenticated]
     lookup_field = "slug"
 
     def get_queryset(self):
